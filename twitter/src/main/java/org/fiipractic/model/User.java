@@ -1,18 +1,20 @@
 package org.fiipractic.model;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
     Long id;
     String userName;
     String firstName;
     String lastName;
     String email;
+    @JsonIgnore
     String pass;
 
     public User() {
 
     }
 
-    public User(String userName, String firstName, String lastName, String email, String pass) {
+    public User(Long id,String userName, String firstName, String lastName, String email, String pass) {
+        this.id=id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
