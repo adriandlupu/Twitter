@@ -1,17 +1,16 @@
 package org.fiipractic.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.fiipractic.config.DbConnection;
 import org.fiipractic.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.fiipractic.exception.NotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 @Component
 public class UserService {
 
@@ -48,7 +47,6 @@ public class UserService {
         }
 
         return users;
-
     }
 
     public User findByUserName(String userName) {

@@ -25,7 +25,7 @@ public class PostController {
         return postService.createPost(post);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }

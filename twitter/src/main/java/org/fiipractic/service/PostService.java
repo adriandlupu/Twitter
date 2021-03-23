@@ -22,9 +22,8 @@ public class PostService {
         Post post = new Post();
         post.setId(postRepository.generatePostId());
         post.setMessage(postDTO.getMessage());
-        //post.setAuthor(userService.findById(postDTO.getAuthorId()));
+        post.setAuthor(userService.findById(postDTO.getAuthorId()));
         post.setTimestamp(System.currentTimeMillis());
-
         postRepository.addPost(post);
 
         return post.getId();

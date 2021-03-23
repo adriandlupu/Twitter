@@ -20,6 +20,7 @@ public class DbConnection {
         catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
         }
+
     }
     public static Connection getConnection()
     {
