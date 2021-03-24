@@ -32,4 +32,16 @@ public class PostService {
     public List<Post> getAllPosts() {
         return postRepository.getPosts();
     }
+
+    public List<Post> getOwnPosts(long id) {
+        return postRepository.getOwnPosts(id);
+    }
+
+    public List<Post> getOwnPosts(long id,long timestamp) {
+        return postRepository.getOwnPosts(id,timestamp);
+    }
+
+    public Long deletePost(long id) {
+        return postRepository.deletePost(id);
+    }
 }

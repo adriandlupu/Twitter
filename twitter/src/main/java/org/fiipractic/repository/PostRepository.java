@@ -23,7 +23,7 @@ public class PostRepository {
         try {
             User user= post.getAuthor();
             Statement mystmt = con.createStatement();
-            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('"+user.getId()+"','"+post.getMessage()+"','"+post.getTimestamp()+"')");}
+            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('"+"5"+"','"+post.getMessage()+"','"+post.getTimestamp()+"')");}
         catch (SQLException e){
             System.out.println(e.getMessage());}
         posts.add(post);
@@ -55,5 +55,63 @@ public class PostRepository {
             System.out.println("SQLException: {}" + ex.getMessage());
         }
         return posts;
+    }
+
+    public List<Post> getOwnPosts(long id) {
+        posts.clear();
+        Post post;
+        try{
+            Statement mystmt= con.createStatement();
+            String sql="select *from post";
+            ResultSet rs=mystmt.executeQuery(sql);
+            while(rs.next()) {
+                if(rs.getLong("userId")==id){
+                post = new Post();
+                UserService userService=new UserService();
+                post.setMessage(rs.getString("message"));
+                post.setAuthor(userService.findById(rs.getLong("userId")));
+                post.setTimestamp(rs.getLong("timestamp"));
+                //post.setReplies();
+                post.setId(rs.getLong("id"));
+                posts.add(post);}
+            }
+        }catch (SQLException ex){
+            post=new Post();
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
+        return posts;
+    }
+    public List<Post> getOwnPosts(long id,long timestamp) {
+        posts.clear();
+        Post post;
+        try{
+            Statement mystmt= con.createStatement();
+            String sql="select *from post";
+            ResultSet rs=mystmt.executeQuery(sql);
+            while(rs.next()) {
+                if(rs.getLong("userId")==id&&rs.getLong("timestamp")>timestamp){
+                    post = new Post();
+                    UserService userService=new UserService();
+                    post.setMessage(rs.getString("message"));
+                    post.setAuthor(userService.findById(rs.getLong("userId")));
+                    post.setTimestamp(rs.getLong("timestamp"));
+                    //post.setReplies();
+                    post.setId(rs.getLong("id"));
+                    posts.add(post);}
+            }
+        }catch (SQLException ex){
+            post=new Post();
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
+        return posts;
+    }
+
+    public Long deletePost(long id) {
+        try {
+            Statement mystmt = con.createStatement();
+            mystmt.executeUpdate("delete from post where id='"+id+"'");}
+        catch (SQLException e){
+            System.out.println(e.getMessage());}
+        return id;
     }
 }
