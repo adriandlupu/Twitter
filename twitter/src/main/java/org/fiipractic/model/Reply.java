@@ -2,20 +2,12 @@ package org.fiipractic.model;
 
 public class Reply {
 
-    private Post parent;
+    private Long parentId;
     private Long id;
     private String message;
-    private User author;
+    private Long authorId;
     private long timestamp;
     private boolean visible;
-
-    public Post getParent() {
-        return parent;
-    }
-
-    public void setParent(Post parent) {
-        this.parent = parent;
-    }
 
     public Long getId() {
         return id;
@@ -33,12 +25,20 @@ public class Reply {
         this.message = message;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
     public long getTimestamp() {
@@ -55,5 +55,17 @@ public class Reply {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "parentId=" + parentId +
+                ", id=" + id +
+                ", message='" + message + '\'' +
+                ", authorId=" + authorId +
+                ", timestamp=" + timestamp +
+                ", visible=" + visible +
+                '}';
     }
 }

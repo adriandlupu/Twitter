@@ -1,10 +1,17 @@
 package org.fiipractic.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.fiipractic.model.User;
+
+import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.*;
+
+@JsonInclude(NON_NULL)
 public class PostDTO {
-
     private String message;
-    private Long authorId;
-
+    private UserDTO author;
+    private List<ReplyDTO> replies;
 
     public String getMessage() {
         return message;
@@ -14,11 +21,19 @@ public class PostDTO {
         this.message = message;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public UserDTO getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(UserDTO author) {
+        this.author = author;
+    }
+
+    public List<ReplyDTO> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<ReplyDTO> replies) {
+        this.replies = replies;
     }
 }

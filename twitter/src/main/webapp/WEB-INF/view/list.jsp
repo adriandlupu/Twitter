@@ -13,7 +13,6 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Password</th>
                 <c:forEach items="${users}" var="user">
                     <tr>
                         <td>${user.id}</td>
@@ -21,7 +20,6 @@
                         <td>${user.lastName}</td>
                         <td>${user.email}</td>
                         <td>${user.userName}</td>
-                        <td>${user.pass}</td>
                     </tr>
                 </c:forEach>
             </table>

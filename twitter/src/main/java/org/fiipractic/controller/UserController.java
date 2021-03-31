@@ -1,5 +1,6 @@
 package org.fiipractic.controller;
 
+import org.fiipractic.dto.UserDTO;
 import org.fiipractic.model.User;
 import org.fiipractic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
 
     @GetMapping("/")
     public String getAll(Model model) {
-        List<User> users = userService.getAll();
+        List<UserDTO> users = userService.getAll();
         model.addAttribute("tableName", "List of all users:");
         model.addAttribute("users", users);
         return "list";
@@ -40,8 +41,8 @@ public class UserController {
 
     @GetMapping("/{userName}")
     public String search(@PathVariable String userName, Model model) {
-        User user = userService.findByUserName(userName);
-        List<User> users = Collections.singletonList(user);
+        UserDTO userDTO = userService.findByUserName(userName);
+        List<UserDTO> users = Collections.singletonList(userDTO);
         model.addAttribute("tableName", "Details for user with userName: " + userName);
         model.addAttribute("users", users);
         return "list";

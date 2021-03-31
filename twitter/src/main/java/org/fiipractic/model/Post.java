@@ -3,14 +3,16 @@ package org.fiipractic.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Post {
 
     @JsonProperty("postId")
     private Long id;
     private String message;
-    private User author;
+    private Long authorId;
     private long timestamp;
+
     private List<Reply> replies;
 
     public Long getId() {
@@ -29,12 +31,12 @@ public class Post {
         this.message = message;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
     public long getTimestamp() {

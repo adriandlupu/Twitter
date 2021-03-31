@@ -1,5 +1,6 @@
 package org.fiipractic.controller;
 
+import org.fiipractic.dto.CreatePostDTO;
 import org.fiipractic.dto.PostDTO;
 import org.fiipractic.model.Post;
 import org.fiipractic.service.PostService;
@@ -22,20 +23,20 @@ public class PostController {
 
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Long createPost(@RequestBody PostDTO post) {
+    public Long createPost(@RequestBody CreatePostDTO post) {
         return postService.createPost(post);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Post> getAllPosts() {
+    public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
     }
 
     @RequestMapping("/user")
-    public List<Post> getOwnPosts(long id){return postService.getOwnPosts(id);}
+    public List<PostDTO> getOwnPosts(long id){return postService.getOwnPosts(id);}
 
     @RequestMapping("/userT")
-    public List<Post> getOwnPosts(long id,long timestamp){return postService.getOwnPosts(id,timestamp);}
+    public List<PostDTO> getOwnPosts(long id,long timestamp){return postService.getOwnPosts(id,timestamp);}
 
     @RequestMapping("/delete")
     public Long deletePost(long id){return postService.deletePost(id);}

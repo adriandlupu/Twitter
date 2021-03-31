@@ -18,129 +18,119 @@ import java.util.List;
 @Repository
 public class PostRepository {
 
-    private List<Post> posts = new ArrayList<>();
-    @Autowired
-    private UserService userService;
-    private ReplyRepository replyRepository;
 
     public void addPost(Post post) {
         try {
-            User user= post.getAuthor();
+            Long authorId = post.getAuthorId();
             Statement mystmt = con.createStatement();
-            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('"+user.getId()+"','"+post.getMessage()+"','"+post.getTimestamp()+"')");}
-        catch (SQLException e){
-            System.out.println(e.getMessage());}
-        posts.add(post);
+            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('" + authorId + "','" + post.getMessage() + "','" + post.getTimestamp() + "')");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    Connection con= DbConnection.getConnection();
+    Connection con = DbConnection.getConnection();
+
     public List<Post> getPosts() {
-        posts.clear();
+        List<Post> posts = new ArrayList<>();
         Post post;
-        try{
-            Statement mystmt= con.createStatement();
-            String sql="select *from post";
-            ResultSet rs=mystmt.executeQuery(sql);
-            while(rs.next()) {
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
                 post = new Post();
-                UserService userService=new UserService();
                 post.setMessage(rs.getString("message"));
-                post.setAuthor(userService.findById(rs.getLong("userId")));
+                post.setAuthorId(rs.getLong("userId"));
                 post.setTimestamp(rs.getLong("timestamp"));
-                //post.setReplies();
                 post.setId(rs.getLong("id"));
                 posts.add(post);
             }
-        }catch (SQLException ex) {
-            post=new Post();
+        } catch (SQLException ex) {
             System.out.println("SQLException: {}" + ex.getMessage());
         }
         return posts;
     }
 
     public List<Post> getOwnPosts(long id) {
-        posts.clear();
+        List<Post> posts = new ArrayList<>();
         Post post;
-        try{
-            Statement mystmt= con.createStatement();
-            String sql="select *from post";
-            ResultSet rs=mystmt.executeQuery(sql);
-            while(rs.next()) {
-                if(rs.getLong("userId")==id){
-                post = new Post();
-                UserService userService=new UserService();
-                post.setMessage(rs.getString("message"));
-                post.setAuthor(userService.findById(rs.getLong("userId")));
-                post.setTimestamp(rs.getLong("timestamp"));
-                post.setReplies(replyRepository.findReplysOfAPost(rs.getLong("id")));
-                post.setId(rs.getLong("id"));
-                posts.add(post);}
-            }
-        }catch (SQLException ex){
-            post=new Post();
-            System.out.println("SQLException: {}" + ex.getMessage());
-        }
-        return posts;
-    }
-    public List<Post> getOwnPosts(long id,long timestamp) {
-        posts.clear();
-        Post post;
-        try{
-            Statement mystmt= con.createStatement();
-            String sql="select *from post";
-            ResultSet rs=mystmt.executeQuery(sql);
-            while(rs.next()) {
-                if(rs.getLong("userId")==id&&rs.getLong("timestamp")>timestamp){
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getLong("userId") == id) {
                     post = new Post();
-                    UserService userService=new UserService();
+                    UserService userService = new UserService();
                     post.setMessage(rs.getString("message"));
-                    post.setAuthor(userService.findById(rs.getLong("userId")));
+                    post.setAuthorId(rs.getLong("userId"));
                     post.setTimestamp(rs.getLong("timestamp"));
-                    post.setReplies(replyRepository.findReplysOfAPost(rs.getLong("id")));
+
                     post.setId(rs.getLong("id"));
-                    posts.add(post);}
+                    posts.add(post);
+                }
             }
-        }catch (SQLException ex){
-            post=new Post();
+        } catch (SQLException ex) {
             System.out.println("SQLException: {}" + ex.getMessage());
         }
         return posts;
     }
 
-    public Post findPostById(long id){
-        posts.clear();
+    public List<Post> getOwnPosts(long id, long timestamp) {
+        List<Post> posts = new ArrayList<>();
         Post post;
-        try{
-            Statement mystmt= con.createStatement();
-            String sql="select *from post WHERE id='"+id+"'";
-            ResultSet rs=mystmt.executeQuery(sql);
-            if(rs.next()){
-                post=new Post();
-                post.setId(id);
-                post.setMessage(rs.getString("message"));
-                post.setAuthor(userService.findById(rs.getLong("userId")));
-                post.setTimestamp(rs.getLong("timestamp"));
-                //TO DO CONTINUA FUNCTIA FINDPOSTBYID CAND POTI, TOTUSI TREBUIE SA TE INTORCI LA
-                //REPLYSERVICE CA SA FACI FUNCTIA FINDREPLYSOFAPOST OR SOME SHIT
-                //post.setReplies(replyRepository.findReplysOfAPost(id));
-                posts.add(post);
-                return posts.stream()
-                        .findFirst()
-                        .orElseThrow(() -> new NotFoundException("post", id));
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getLong("userId") == id && rs.getLong("timestamp") > timestamp) {
+                    post = new Post();
+                    UserService userService = new UserService();
+                    post.setMessage(rs.getString("message"));
+                    post.setAuthorId(rs.getLong("userId"));
+                    post.setTimestamp(rs.getLong("timestamp"));
+
+                    post.setId(rs.getLong("id"));
+                    posts.add(post);
+                }
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
+
             System.out.println("SQLException: {}" + ex.getMessage());
         }
-        post=new Post();
+        return posts;
+    }
+
+    public Post findPostById(long id) {
+        Post post = null;
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post WHERE id='" + id + "'";
+            ResultSet rs = mystmt.executeQuery(sql);
+            if (rs.next()) {
+                post = new Post();
+                post.setId(id);
+                post.setMessage(rs.getString("message"));
+                post.setAuthorId(rs.getLong("userId"));
+                post.setTimestamp(rs.getLong("timestamp"));
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
         return post;
     }
 
     public Long deletePost(long id) {
         try {
             Statement mystmt = con.createStatement();
-            mystmt.executeUpdate("delete from post where id='"+id+"'");}
-        catch (SQLException e){
-            System.out.println(e.getMessage());}
+            mystmt.executeUpdate("delete from post where id='" + id + "'");
+            mystmt.executeUpdate("delete from reply where postId='" + id + "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return id;
     }
 }
