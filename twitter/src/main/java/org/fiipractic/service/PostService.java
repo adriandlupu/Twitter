@@ -20,7 +20,7 @@ public class PostService {
     public Long createPost(PostDTO postDTO) {
 
         Post post = new Post();
-        post.setId(postRepository.generatePostId());
+        //post.setId(postRepository.generatePostId());
         post.setMessage(postDTO.getMessage());
         post.setAuthor(userService.findById(postDTO.getAuthorId()));
         post.setTimestamp(System.currentTimeMillis());

@@ -29,6 +29,11 @@ public class PostController {
     public Long createPost(@RequestBody PostDTO post) {
         return postService.createPost(post);
     }
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping("/reply")
+    public Long createReply(@RequestBody ReplyDTO reply) {
+        return replyService.createReply(reply);
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Post> getAllPosts() {
@@ -44,8 +49,4 @@ public class PostController {
     @RequestMapping("/delete")
     public Long deletePost(long id){return postService.deletePost(id);}
 
-    @RequestMapping("/reply")
-    public Long createReply(@RequestBody ReplyDTO reply) {
-        return replyService.createReply(reply);
-    }
 }
