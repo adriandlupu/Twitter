@@ -27,15 +27,12 @@ public class PostRepository {
         try {
             User user= post.getAuthor();
             Statement mystmt = con.createStatement();
-            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('"+"5"+"','"+post.getMessage()+"','"+post.getTimestamp()+"')");}
+            mystmt.executeUpdate("insert into post (userId,message,timestamp) values('"+user.getId()+"','"+post.getMessage()+"','"+post.getTimestamp()+"')");}
         catch (SQLException e){
             System.out.println(e.getMessage());}
         posts.add(post);
     }
 
-    //public Long generatePostId() {
-    //    return posts.size() + 1l;
-    //}
     Connection con= DbConnection.getConnection();
     public List<Post> getPosts() {
         posts.clear();

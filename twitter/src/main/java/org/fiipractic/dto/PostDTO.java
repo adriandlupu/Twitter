@@ -5,6 +5,7 @@ public class PostDTO {
     private String message;
     private Long authorId;
 
+
     public String getMessage() {
         return message;
     }
