@@ -25,6 +25,8 @@ public class LikeService {
         return likeRepository.deleteLike(userId, postId);
     }
 
+    public Long deleteAllLikesOfAPost(long postId) { return likeRepository.deleteAllLikesOfAPost(postId);}
+
     public List<Like> getLikesOfAPost(long id){
         return likeRepository.findLikesOfAPost(id);
     }

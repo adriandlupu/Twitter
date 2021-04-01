@@ -40,4 +40,14 @@ public class MentionRepository {
         return postId;
     }
 
+    public Long deleteAllMentionsOfAUser(long userId) {
+        try {
+            Statement mystmt = con.createStatement();
+            mystmt.executeUpdate("delete from mention where userId='"+userId+ "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return userId;
+    }
+
 }

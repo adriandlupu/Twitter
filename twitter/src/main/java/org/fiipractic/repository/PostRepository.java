@@ -91,7 +91,6 @@ public class PostRepository {
                     post.setMessage(rs.getString("message"));
                     post.setAuthorId(rs.getLong("userId"));
                     post.setTimestamp(rs.getLong("timestamp"));
-
                     post.setId(rs.getLong("id"));
                     posts.add(post);
                 }
@@ -101,6 +100,25 @@ public class PostRepository {
             System.out.println("SQLException: {}" + ex.getMessage());
         }
         return posts;
+    }
+
+    public List<Long> getOwnPostsId(long id){
+        List<Long> ids=new ArrayList<>();
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select * from post";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
+                if(rs.getLong("userId")==id){
+                    ids.add(rs.getLong("id"));
+                    System.out.println(rs.getLong("id"));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
+        System.out.println(ids);
+        return ids;
     }
 
     public Post findPostById(long id) {

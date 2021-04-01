@@ -4,6 +4,7 @@ import org.fiipractic.dto.UserDTO;
 import org.fiipractic.model.User;
 import org.fiipractic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,9 @@ public class UserController {
         model.addAttribute("users", users);
         return "list";
     }
+
     @RequestMapping("/delete")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public Long deleteUser(long id){return userService.deleteUser(id);}
 }

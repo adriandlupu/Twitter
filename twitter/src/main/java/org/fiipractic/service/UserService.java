@@ -1,11 +1,14 @@
 package org.fiipractic.service;
 
+
 import org.fiipractic.dto.UserDTO;
+import org.fiipractic.model.Post;
 import org.fiipractic.model.User;
 import org.fiipractic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +22,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private MentionService mentionService;
 
     public void create(User userFromRq) {
         userRepository.create(userFromRq);
@@ -43,6 +52,13 @@ public class UserService {
     }
 
     public Long deleteUser(long id) {
+        List<Long> ids;
+        Long x;
+        ids=postService.getOwnPostsId(id);
+        System.out.println(ids);
+        for(Long iterator: ids)
+            x=postService.deletePost(iterator);
+        x=mentionService.deleteAllMentionsOfAUser(id);
         return userRepository.deleteUser(id);
     }
 

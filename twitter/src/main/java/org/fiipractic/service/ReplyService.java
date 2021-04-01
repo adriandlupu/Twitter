@@ -34,6 +34,7 @@ public class ReplyService {
         return reply.getTimestamp();
     }
 
+    public Long deleteReplyOfAPost(long id) {return replyRepository.deleteReplyOfAPost(id);}
 
     public List<ReplyDTO> getRepliesByPostId(Long id) {
         List<Reply> replies = replyRepository.findReplysOfAPost(id);

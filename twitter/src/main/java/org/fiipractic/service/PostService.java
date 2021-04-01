@@ -32,13 +32,7 @@ public class PostService {
     private LikeService likeService;
 
     @Autowired
-    private ReplyRepository replyRepository;
-
-    @Autowired
-    private LikeRepository likeRepository;
-
-    @Autowired
-    private MentionRepository mentionRepository;
+    private MentionService mentionService;
 
     public Long createPost(CreatePostDTO createPostDTO) {
 
@@ -74,9 +68,11 @@ public class PostService {
     }
 
     public Long deletePost(long id) {
-        return postRepository.deletePost(id)+replyRepository.deleteReplyOfAPost(id)+likeRepository.deleteAllLikesOfAPost(id)-mentionRepository.deleteAllMentionsOfAPost(id);
+        return postRepository.deletePost(id)+replyService.deleteReplyOfAPost(id)+likeService.deleteAllLikesOfAPost(id)-mentionService.deleteAllMentionsOfAPost(id);
 
     }
+
+    public List<Long> getOwnPostsId(long id){return postRepository.getOwnPostsId(id);}
 
     private PostDTO toDTO(Post post, boolean includeAuthor) {
 

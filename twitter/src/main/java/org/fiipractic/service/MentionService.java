@@ -24,4 +24,9 @@ public class MentionService {
     public Long deleteMention(long userId, long postId) {
         return mentionRepository.deleteMention(userId, postId);
     }
+
+    public Long deleteAllMentionsOfAPost(long postId) { return mentionRepository.deleteAllMentionsOfAPost(postId);}
+
+    public Long deleteAllMentionsOfAUser(long postId) { return mentionRepository.deleteAllMentionsOfAUser(postId);}
+
 }
