@@ -47,4 +47,6 @@ public class UserController {
         model.addAttribute("users", users);
         return "list";
     }
+    @RequestMapping("/delete")
+    public Long deleteUser(long id){return userService.deleteUser(id);}
 }

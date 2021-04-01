@@ -21,7 +21,6 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Long createPost(@RequestBody CreatePostDTO post) {
         return postService.createPost(post);

@@ -42,6 +42,10 @@ public class UserService {
                 .orElseThrow(()-> new NotFoundException(User.class.getName(),id));
     }
 
+    public Long deleteUser(long id) {
+        return userRepository.deleteUser(id);
+    }
+
     private UserDTO toDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());

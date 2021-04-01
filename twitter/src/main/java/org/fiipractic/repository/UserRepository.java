@@ -79,4 +79,15 @@ public class UserRepository {
         }
         return null;
     }
+
+    public Long deleteUser(long id) {
+        try {
+            Statement mystmt = con.createStatement();
+            mystmt.executeUpdate("delete from user where id='" + id + "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
+
 }
