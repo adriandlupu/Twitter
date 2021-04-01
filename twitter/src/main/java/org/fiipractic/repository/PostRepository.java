@@ -127,7 +127,6 @@ public class PostRepository {
         try {
             Statement mystmt = con.createStatement();
             mystmt.executeUpdate("delete from post where id='" + id + "'");
-            mystmt.executeUpdate("delete from reply where postId='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

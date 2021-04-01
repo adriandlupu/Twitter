@@ -34,6 +34,7 @@ public class ReplyService {
         return reply.getTimestamp();
     }
 
+
     public List<ReplyDTO> getRepliesByPostId(Long id) {
         List<Reply> replies = replyRepository.findReplysOfAPost(id);
 

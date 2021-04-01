@@ -5,6 +5,8 @@ import org.fiipractic.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LikeService {
 
@@ -21,6 +23,10 @@ public class LikeService {
 
     public Long deleteLike(long userId, long postId) {
         return likeRepository.deleteLike(userId, postId);
+    }
+
+    public List<Like> getLikesOfAPost(long id){
+        return likeRepository.findLikesOfAPost(id);
     }
 
 }

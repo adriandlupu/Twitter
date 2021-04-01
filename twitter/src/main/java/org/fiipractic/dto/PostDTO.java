@@ -1,6 +1,7 @@
 package org.fiipractic.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.fiipractic.model.Like;
 import org.fiipractic.model.User;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class PostDTO {
     private String message;
     private UserDTO author;
     private List<ReplyDTO> replies;
+    private List<Like> likes;
 
     public String getMessage() {
         return message;
@@ -35,5 +37,13 @@ public class PostDTO {
 
     public void setReplies(List<ReplyDTO> replies) {
         this.replies = replies;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 }

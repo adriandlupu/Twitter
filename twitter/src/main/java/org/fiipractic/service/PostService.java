@@ -3,7 +3,10 @@ package org.fiipractic.service;
 import org.fiipractic.dto.CreatePostDTO;
 import org.fiipractic.dto.PostDTO;
 import org.fiipractic.model.Post;
+import org.fiipractic.repository.LikeRepository;
+import org.fiipractic.repository.MentionRepository;
 import org.fiipractic.repository.PostRepository;
+import org.fiipractic.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,18 @@ public class PostService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LikeService likeService;
+
+    @Autowired
+    private ReplyRepository replyRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
+    private MentionRepository mentionRepository;
 
     public Long createPost(CreatePostDTO createPostDTO) {
 
@@ -59,7 +74,8 @@ public class PostService {
     }
 
     public Long deletePost(long id) {
-        return postRepository.deletePost(id);
+        return postRepository.deletePost(id)+replyRepository.deleteReplyOfAPost(id)+likeRepository.deleteAllLikesOfAPost(id)-mentionRepository.deleteAllMentionsOfAPost(id);
+
     }
 
     private PostDTO toDTO(Post post, boolean includeAuthor) {
@@ -70,6 +86,7 @@ public class PostService {
             postDTO.setAuthor(userService.findById(post.getAuthorId()));
         }
         postDTO.setReplies(replyService.getRepliesByPostId(post.getId()));
+        postDTO.setLikes(likeService.getLikesOfAPost(post.getId()));
         return postDTO;
 
     }

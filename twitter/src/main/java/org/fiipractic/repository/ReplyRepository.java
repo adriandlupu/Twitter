@@ -57,4 +57,13 @@ public class ReplyRepository {
         return replies;
     }
 
+    public Long deleteReplyOfAPost(long id) {
+        try {
+            Statement mystmt = con.createStatement();
+            mystmt.executeUpdate("delete from reply where postId='" + id + "'");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
 }
