@@ -60,6 +60,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostDTO> getMentionPosts(long id) {
+        List<Post> posts = postRepository.getMentionPosts(id);
+        return posts.stream()
+                .map(post -> toDTO(post, true))
+                .collect(Collectors.toList());
+    }
+
     public List<PostDTO> getOwnPosts(long id, long timestamp) {
         List<Post> posts = postRepository.getOwnPosts(id, timestamp);
         return posts.stream()
@@ -71,6 +78,14 @@ public class PostService {
         return postRepository.deletePost(id)+replyService.deleteReplyOfAPost(id)+likeService.deleteAllLikesOfAPost(id)-mentionService.deleteAllMentionsOfAPost(id);
 
     }
+
+    public void copyPost(Long postId, Long userId){
+        Post post=postRepository.findPostById(postId);
+        post.setAuthorId(userId);
+        post.setTimestamp(System.currentTimeMillis());
+        postRepository.addPost(post);
+    }
+
 
     public List<Long> getOwnPostsId(long id){return postRepository.getOwnPostsId(id);}
 

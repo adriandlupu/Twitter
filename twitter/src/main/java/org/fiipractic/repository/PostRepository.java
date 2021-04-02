@@ -28,6 +28,7 @@ public class PostRepository {
             System.out.println(e.getMessage());
         }
     }
+    
 
     Connection con = DbConnection.getConnection();
 
@@ -68,6 +69,30 @@ public class PostRepository {
                     post.setTimestamp(rs.getLong("timestamp"));
 
                     post.setId(rs.getLong("id"));
+                    posts.add(post);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
+        return posts;
+    }
+
+    public List<Post> getMentionPosts(long id) {
+        List<Post> posts = new ArrayList<>();
+        Post post;
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post right join mention on post.id = mention.postId";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getLong("mention.userId") == id) {
+                    post = new Post();
+                    UserService userService = new UserService();
+                    post.setMessage(rs.getString("post.message"));
+                    post.setAuthorId(rs.getLong("post.userId"));
+                    post.setTimestamp(rs.getLong("post.timestamp"));
+                    post.setId(rs.getLong("post.id"));
                     posts.add(post);
                 }
             }
@@ -140,6 +165,7 @@ public class PostRepository {
         }
         return post;
     }
+
 
     public Long deletePost(long id) {
         try {

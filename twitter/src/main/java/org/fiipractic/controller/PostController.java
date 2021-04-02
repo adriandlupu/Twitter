@@ -40,4 +40,12 @@ public class PostController {
     @RequestMapping("/delete")
     public Long deletePost(long id){return postService.deletePost(id);}
 
+    @RequestMapping("/copy")
+    public void copyPost(long postId, long userId){ postService.copyPost(postId,userId);}
+
+    @RequestMapping("/mentions")
+    public List<PostDTO> getMentionPosts(long id) {
+        return postService.getMentionPosts(id);
+    }
+
 }
