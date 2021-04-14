@@ -28,7 +28,7 @@ public class PostRepository {
             System.out.println(e.getMessage());
         }
     }
-    
+
 
     Connection con = DbConnection.getConnection();
 
@@ -87,6 +87,30 @@ public class PostRepository {
             ResultSet rs = mystmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.getLong("mention.userId") == id) {
+                    post = new Post();
+                    UserService userService = new UserService();
+                    post.setMessage(rs.getString("post.message"));
+                    post.setAuthorId(rs.getLong("post.userId"));
+                    post.setTimestamp(rs.getLong("post.timestamp"));
+                    post.setId(rs.getLong("post.id"));
+                    posts.add(post);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: {}" + ex.getMessage());
+        }
+        return posts;
+    }
+
+    public List<Post> getFeedPosts(long id) {
+        List<Post> posts = new ArrayList<>();
+        Post post;
+        try {
+            Statement mystmt = con.createStatement();
+            String sql = "select *from post right join follow on post.userId = follow.following";
+            ResultSet rs = mystmt.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getLong("follow.follower") == id) {
                     post = new Post();
                     UserService userService = new UserService();
                     post.setMessage(rs.getString("post.message"));

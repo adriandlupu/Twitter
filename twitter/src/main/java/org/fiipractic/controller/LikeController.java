@@ -14,6 +14,7 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
+    @RequestMapping("/create")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Long createLike(@RequestBody Like like) {
         return likeService.createLike(like);

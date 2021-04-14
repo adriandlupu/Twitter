@@ -67,6 +67,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostDTO> getFeedPosts(long id) {
+        List<Post> posts = postRepository.getFeedPosts(id);
+        return posts.stream()
+                .map(post -> toDTO(post, true))
+                .collect(Collectors.toList());
+    }
+
     public List<PostDTO> getOwnPosts(long id, long timestamp) {
         List<Post> posts = postRepository.getOwnPosts(id, timestamp);
         return posts.stream()

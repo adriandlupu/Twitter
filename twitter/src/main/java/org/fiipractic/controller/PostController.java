@@ -21,11 +21,13 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @RequestMapping("/create")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Long createPost(@RequestBody CreatePostDTO post) {
         return postService.createPost(post);
     }
 
+    @RequestMapping("/getposts")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
@@ -46,6 +48,11 @@ public class PostController {
     @RequestMapping("/mentions")
     public List<PostDTO> getMentionPosts(long id) {
         return postService.getMentionPosts(id);
+    }
+
+    @RequestMapping("/feed")
+    public List<PostDTO> getFeedPosts(long id) {
+        return postService.getFeedPosts(id);
     }
 
 }

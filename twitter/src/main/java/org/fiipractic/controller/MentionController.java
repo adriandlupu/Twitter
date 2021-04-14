@@ -14,6 +14,7 @@ public class MentionController {
     @Autowired
     private MentionService mentionService;
 
+    @RequestMapping("/create")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Long createMention(@RequestBody Mention mention) {
         return mentionService.createMention(mention);

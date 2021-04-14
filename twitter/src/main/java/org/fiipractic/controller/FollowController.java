@@ -14,6 +14,7 @@ public class FollowController {
     @Autowired
     private FollowService followService;
 
+    @RequestMapping("/create")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Long createFollow(@RequestBody CreateFollowDTO followDTO) {
         return followService.createFollow(followDTO);

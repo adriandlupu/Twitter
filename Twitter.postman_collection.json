@@ -1,0 +1,547 @@
+{
+	"info": {
+		"_postman_id": "b36d6ca8-1bd5-4acc-a5f6-bb20625bdb9c",
+		"name": "Twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/twitter-1.0-SNAPSHOT/user/registration?&firstName=helllo&lastName=helo&email=ssjsjsjksks&userName=ufjdj&password=password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/user/registration?&firstName=helllo&lastName=helo&email=ssjsjsjksks&userName=ufjdj&password=password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"user",
+						"registration"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "firstName",
+							"value": "helllo"
+						},
+						{
+							"key": "lastName",
+							"value": "helo"
+						},
+						{
+							"key": "email",
+							"value": "ssjsjsjksks"
+						},
+						{
+							"key": "userName",
+							"value": "ufjdj"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"al x-lea post pe acest twitter\",\r\n    \"authorId\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/user?id=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"user"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get post by user filtered by timestamp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/userT?id=5&timestamp=1617194807897",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"userT"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						},
+						{
+							"key": "timestamp",
+							"value": "1617194807897"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a post by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/delete?id=11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a reply",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"2 reply pe acest twitter\",\r\n    \"authorId\": 5,\r\n    \"parentPostId\":11,\r\n    \"visible\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/replys",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"replys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add follow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"followerId\": 5,\r\n    \"followingId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/follow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete follow",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/follow/delete?followerId=5&followingId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"follow",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "followerId",
+							"value": "5"
+						},
+						{
+							"key": "followingId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add like",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 1,\r\n    \"postId\": 11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"like"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "postId",
+							"value": "11",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete like",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/like/delete?userId=1&postId=8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"like",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						},
+						{
+							"key": "postId",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add mention",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 1,\r\n    \"postId\": 11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/mention",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"mention"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete mention",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/mention/delete?userId=1&postId=7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"mention",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						},
+						{
+							"key": "postId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user and everything related to him",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/user/delete?id=24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"user",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Copy a post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/copy?postId=4&userId=8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"copy"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "4"
+						},
+						{
+							"key": "userId",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get posts where a user is mentioned",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/mentions?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"mentions"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get feed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter-1.0-SNAPSHOT/posts/feed?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter-1.0-SNAPSHOT",
+						"posts",
+						"feed"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
